@@ -59,6 +59,7 @@ class Normalizer {
   // Interface to the normalization system for callers that want to be agnostic
   // about utterances.
   bool Normalize(const string &input, string *output) const;
+  string NormalizePy(const string &input) const;
 
   // normalizer.cc
   // Interface to the normalization system for callers that want to be agnostic

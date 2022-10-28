@@ -24,8 +24,22 @@
 #ifndef SPARROWHAWK_PROTOBUF_SERIALIZER_H_
 #define SPARROWHAWK_PROTOBUF_SERIALIZER_H_
 
+// A macro to disallow operator=
+ // // This should be used in the private: declarations for a class.
+#define DISALLOW_ASSIGN_(type) \
+    void operator=(type const &) = delete
+
+// A macro to disallow copy constructor and operator=
+    // This should be used in the private: declarations for a class.
+#define DISALLOW_COPY_AND_ASSIGN(type) \
+         type(type const &) = delete; \
+              DISALLOW_ASSIGN_(type)
+
+              
+
 #include <vector>
 using std::vector;
+
 
 #include <fst/compat.h>
 #include <google/protobuf/descriptor.h>
@@ -53,7 +67,7 @@ class ProtobufSerializer {
   void SerializeToFst();
 
   // Serializes the message into a string
-  string SerializeToString() const;
+  std::string SerializeToString() const;
 
  protected:
   typedef google::protobuf::FieldDescriptor FieldDescriptor;
@@ -80,10 +94,10 @@ class ProtobufSerializer {
                          StateId state);
 
   // Serializes a string into the FST.
-  StateId SerializeString(const string &str, StateId state);
+  StateId SerializeString(const std::string &str, StateId state);
 
   // As above, allowing control of whether quotes are optional or not.
-  StateId SerializeString(const string &str,
+  StateId SerializeString(const std::string &str,
                           StateId state,
                           bool optional_quotes);
 

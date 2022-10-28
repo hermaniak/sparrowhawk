@@ -8,6 +8,7 @@ As noted in the README text file distributed with this package, in order to
 build Sparrowhawk you must have installed the following packages:
 
   - OpenFst 1.5.4 or higher (<http://www.openfst.org>)
+r
   - Thrax 1.2.2 or higher (<http://www.openfst.org/twiki/bin/view/GRM/Thrax>)
   - re2 (<https://github.com/google/re2>)
   - protobuf (<http://protobuf.googlecode.com/files/protobuf-2.5.0.tar.gz> ---

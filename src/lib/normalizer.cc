@@ -96,6 +96,18 @@ bool Normalizer::Normalize(const string &input, string *output) const {
   return true;
 }
 
+
+string Normalizer::NormalizePy(const string &input) const {
+  string output;
+  std::unique_ptr<Utterance> utt;
+  utt.reset(new Utterance);
+  if (!Normalize(utt.get(), input)) return NULL;
+  output = LinearizeWords(utt.get());
+  return output;
+}
+
+
+
 bool Normalizer::Normalize(Utterance *utt, const string &input) const {
   return TokenizeAndClassifyUtt(utt, input) && VerbalizeUtt(utt);
 }
@@ -106,6 +118,8 @@ bool Normalizer::NormalizeAndShowLinks(
   utt.reset(new Utterance);
   if (!Normalize(utt.get(), input)) return false;
   *output = ShowLinks(utt.get());
+  LoggerError("-- %s", output->c_str());
+
   return true;
 }
 
@@ -159,7 +173,7 @@ bool Normalizer::VerbalizeUtt(Utterance *utt) const {
       }
     } else if (token->type() == Token::SEMIOTIC_CLASS) {
       if (!token->skip()) {
-        LoggerDebug("Verbalizing: [%s]\n", token_form.c_str());
+        //LoggerDebug("Verbalizing: [%s]\n", token_form.c_str());
         string words;
         if (VerbalizeSemioticClass(*token, &words)) {
           AddWords(utt, token, words);
@@ -192,7 +206,7 @@ bool Normalizer::VerbalizeUtt(Utterance *utt) const {
       LoggerError("No type found for [%s]", token_form.c_str());
     }
   }
-  LoggerDebug("Verbalize output: Words\n%s\n\n", LinearizeWords(utt).c_str());
+  //LoggerDebug("Verbalize output: Words\n%s\n\n", LinearizeWords(utt).c_str());
   return true;
 }
 

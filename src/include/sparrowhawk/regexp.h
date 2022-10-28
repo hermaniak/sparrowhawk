@@ -18,6 +18,18 @@
 #ifndef SPARROWHAWK_REGEXP_H_
 #define SPARROWHAWK_REGEXP_H_
 
+// A macro to disallow operator=
+// // This should be used in the private: declarations for a class.
+#define DISALLOW_ASSIGN_(type) \
+   void operator=(type const &) = delete
+
+// A macro to disallow copy constructor and operator=
+// This should be used in the private: declarations for a class.
+#define DISALLOW_COPY_AND_ASSIGN(type) \
+     type(type const &) = delete; \
+     DISALLOW_ASSIGN_(type)
+
+
 #include <string>
 using std::string;
 #include <vector>
